@@ -34,7 +34,7 @@ object ExploringOption {
     .flatMap(job => job.salary)
     .map(salary => salary / 12)
 
-  val monthlySalaryDeSugar = person3.flatMap(person => {
+  val monthlySalaryDeSugar2 = person3.flatMap(person => {
     val introduction = "Hello, my name is" + person.name
     person.job.flatMap(job => job.salary).map(salary => (introduction, salary / 12) )
   })
