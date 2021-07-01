@@ -11,6 +11,9 @@ lazy val root = (project in file("."))
     libraryDependencies += scalaTest % Test
   )
 
+addCompilerPlugin("org.typelevel" % "kind-projector" % "0.11.3" cross CrossVersion.full)
+
+
 // Uncomment the following for publishing to Sonatype.
 // See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for more detail.
 
