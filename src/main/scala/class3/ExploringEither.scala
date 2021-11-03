@@ -94,7 +94,7 @@ case class Right[R](r: R) extends Either[Nothing,R]
   def getEmployer2(name: String): Either[Error, Option[Employer]] = ???
 
 
-  val result = for {
+  val result2 = for {
     maybePerson <- getPerson2(1)
     maybeEmployer <- maybePerson.map(person => getEmployer2(person.name)) match {
       case None => Right(None)

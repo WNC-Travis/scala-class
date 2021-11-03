@@ -25,24 +25,25 @@ object ExploringEitherT {
 
   //type constructor
   //Option is considered type * => * or Kind to Kind
-  val invalidOption: Option = ???
+//  val invalidOption: Option = ???
 
-  //the "I don't care what type" constructor.  Not great scala,
-  val doNotCareOption: Option[_] = Some(Unit)
+  //the "I don't care what type" constructor.  Not great scala, but useful sometimes.
+  val doNotCareOption: Option[Any] = Some(())
   doNotCareOption match {
     case None => ???
     case Some(x) => x
   }
 
-  //to use option we must specify a type
+  //to use option we must specify a type as a parameter: "type parameter".
   val validOption: Option[String] = ???
 
   //just an alias
   type OptionOfT[T] = Option[T]
+//  val x: OptionOfT[String]
 
   // takes 2 Types to make an either
-  val invalidEither:  Either = ???
-  val invalidEither2:  Either[Error] = ???
+//  val invalidEither:  Either = ???
+  val invalidEither2:  Either[Error, _] = ???
 
   //however, if we know one type, we can partially define the type
   type ErrorEither[T] = Either[Error, T]
@@ -52,14 +53,14 @@ object ExploringEitherT {
   def getPerson2(id: Int): Either[Error, Option[Person]] = ???
   def getEmployer2(name: String): Either[Error, Option[Employer]] = ???
 
-  // we can redefine based on "partiall defined types"
+  // we can redefine based on "partially defined types"
   def getPerson3(id: Int): ErrorEither[Option[Person]] = ???
   def geEmployer3(name: String): ErrorEither[Option[Employer]] = ???
 
   //we can go one step further
   type ErrorEitherOptional[T] = Either[Error, Option[T]]
 
-  def getPerson4(id: Int): ErrorEitherOptional[Person] = ???
+  def getPerson4(id: Int): ErrorEitherOptional[Person] = Left(DbError("Error"))
   def getEmployer4(name: String): ErrorEitherOptional[Employer] = ???
 
   //bing it back to for comprehension
@@ -120,15 +121,22 @@ object ExploringEitherT {
     person <- getPerson5(1)
     employer <- getEmployer5(person.name)
   } yield (person, employer)
-  result3
+  result3.value
 
 
   // F[_] is any class that is a type constructor with one parameter.
   // Eg, Option, Either[Error,*], Future
-  case class EitherT[F[_], A, B](value: F[Either[A, B]]) {
-    def map[C](f: B => C): EitherT[F[_],A,C] = ???
-    def flatMap[C](f: B => EitherT[F[_],A,C]): EitherT[F[_],A,C] = ???
-  }
+//  val x: Option[_] = ???
+//  case class EitherT[F[_], A, B](value: F[Either[A, B]]) {
+//    def map[C](f: B => C): EitherT[F[_],A,C] = ???
+//    def flatMap[C](f: B => EitherT[F[_],A,C]): EitherT[F[_],A,C] = ???
+//  }
+//  val innerValue: Option[Either[Error, String]] = ???
+//  val either: EitherT[Option, Error, String] = EitherT(innerValue)
+//
+//  val futureInnerValue: Future[Either[Error,String]] = ???
+//
+//  val futureEitherT: EitherT[Future, Error, String] = EitherT(futureInnerValue)
 
 
 
@@ -136,19 +144,19 @@ object ExploringEitherT {
 
 
 
-
-  // which brings us to AsyncServiceResult, A specific definition of EitherT with Future as it's Wrapper
-  type AsyncServiceResult[T] = EitherT[Future, Error, T]
-
-  def getPersonAsync(id: Int): AsyncServiceResult[Person]
-  def getEmployerAsync(name: String): AsyncServiceResult[Employer]
-
-  val asyncResult = for {
-    person <- getPersonAsync(1)
-    employer <- getEmployerAsync(person.name)
-  } yield (person, employer)
-  asyncResult.value
-
+//
+//  // which brings us to AsyncServiceResult, A specific definition of EitherT with Future as it's Wrapper
+//  type AsyncServiceResult[T] = EitherT[Future, Error, T]
+//
+//  def getPersonAsync(id: Int): AsyncServiceResult[Person] = ???
+//  def getEmployerAsync(name: String): AsyncServiceResult[Employer] = ???
+//
+//  val asyncResult = for {
+//    person <- getPersonAsync(1)
+//    employer <- getEmployerAsync(person.name)
+//  } yield (person, employer)
+//  asyncResult.value
+//
 
 
 
