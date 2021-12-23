@@ -1,9 +1,9 @@
-create table participant2(
+create table participant(
     participant_id serial,
-    first_name text
+    full_name text
 );
 
-create table positions2(
+create table positions(
     positions_id serial,
     participant_id int,
     account_name text,
