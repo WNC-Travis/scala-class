@@ -9,6 +9,7 @@ lazy val root = (project in file("."))
   .settings(
     name := "Scala Class",
     libraryDependencies += scalaTest % Test,
+    libraryDependencies += "net.codingwell"     %% "scala-guice" % "5.0.0",
     libraryDependencies ++= postgres
   )
 

@@ -11,6 +11,8 @@ object Dependencies {
       "org.slf4j" % "slf4j-simple" % "2.0.0-alpha5",
       "com.github.tminglei" %% "slick-pg" % "0.19.4",
       "com.github.tminglei" %% "slick-pg_json4s" % "0.19.4",
+      "org.typelevel" %% "cats-core" % "2.6.1",
+      "net.codingwell"     %% "scala-guice" % "5.0.0",
       "com.typesafe.slick" %% "slick" % slickVersion,
       "com.typesafe.slick" %% "slick-hikaricp" % slickVersion
     )
